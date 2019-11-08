@@ -11,7 +11,7 @@ chmod +x /usr/local/bin/wait-for-pg
 ## usage
 
 ```sh
-./wait-for-pg check \
+wait-for-pg check \
   --host postgres.domain.com \
   --port 5432 \
   --user pguser \

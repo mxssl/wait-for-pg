@@ -73,7 +73,7 @@ func init() {
 }
 
 func check(c config) {
-	connString := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", c.host, c.port, c.user, c.password, c.dbname)
+	connString := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable connect_timeout=1", c.host, c.port, c.user, c.password, c.dbname)
 	for i := 0; i < c.retry; i++ {
 		time.Sleep(time.Duration(c.sleep) * time.Second)
 		db, err := sql.Open("postgres", connString)

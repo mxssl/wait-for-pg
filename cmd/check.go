@@ -84,7 +84,8 @@ func check(c config) {
 				log.Printf("Error: %s", err.Error())
 				continue
 			}
-		} else if db == nil {
+		}
+		if db == nil {
 			log.Printf("Error: %s", err.Error())
 			continue
 		}

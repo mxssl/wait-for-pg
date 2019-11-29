@@ -1,6 +1,6 @@
 BINARY_NAME=wait-for-pg
 CURRENT_DIR=$(shell pwd)
-TAG=$(shell git name-rev --tags --name-only $(git rev-parse HEAD))
+TAG=$(shell git name-rev --tags --name-only $(shell git rev-parse HEAD))
 DOCKER_REGISTRY=mxssl
 export GO111MODULE=on
 
@@ -27,15 +27,15 @@ tidy:
 	go mod tidy
 
 github-release-dry:
-	echo -e "TAG: ${TAG}"
+	@echo "TAG: ${TAG}"
 	goreleaser release --rm-dist --snapshot --skip-publish
 
 github-release:
-	echo -e "TAG: ${TAG}"
+	@echo "TAG: ${TAG}"
 	goreleaser release --rm-dist
 
 docker-release:
-	echo -e "Registry: ${DOCKER_REGISTRY}"
-	echo -e "TAG: ${TAG}"
+	@echo "Registry: ${DOCKER_REGISTRY}"
+	@echo "TAG: ${TAG}"
 	docker build --tag ${DOCKER_REGISTRY}/${BINARY_NAME}:${TAG} .
 	docker push ${DOCKER_REGISTRY}/${BINARY_NAME}:${TAG}

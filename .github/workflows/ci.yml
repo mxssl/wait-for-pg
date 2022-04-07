@@ -6,17 +6,16 @@ on:
     - '*'
 
 jobs:
-  lint:
+  golangci:
+    name: lint
     runs-on: ubuntu-latest
-    container: 
-      image: golangci/golangci-lint:v1.20-alpine
-      options: -w /go/src/github.com/mxssl/wait-for-pg
     steps:
-      - uses: actions/checkout@v1
-      - name: Install dependencies
-        run: apk add --no-cache make
-      - name: Lint
-        run: make lint
+      - uses: actions/setup-go@v2
+      - uses: actions/checkout@v2
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: v1.45.2
 
   docker-release:
     runs-on: ubuntu-latest

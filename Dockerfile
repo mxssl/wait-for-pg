@@ -1,4 +1,4 @@
-FROM golang:1.13.4-alpine3.10 as builder
+FROM golang:1.18.0-alpine3.15 as builder
 
 ENV GO111MODULE=on
 
@@ -15,10 +15,10 @@ RUN apk add --no-cache \
 RUN CGO_ENABLED=0 \
   GOOS=`go env GOHOSTOS` \
   GOARCH=`go env GOHOSTARCH` \
-  go build -v -mod=vendor -o wait-for-pg
+  go build -v -o wait-for-pg
 
 # Copy compiled binary to clear Alpine Linux image
-FROM alpine:3.10.3
+FROM alpine:3.15.4
 WORKDIR /
 RUN apk add --no-cache ca-certificates
 COPY --from=builder /go/src/github.com/mxssl/wait-for-pg/wait-for-pg /usr/local/bin/wait-for-pg

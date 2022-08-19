@@ -4,13 +4,14 @@ Simple app that checks if PostgreSQL database is ready or not.
 
 ## Install and usage
 
-### Option 1: use binary
+### Option 1: binary
 
 ```sh
-wget https://github.com/mxssl/wait-for-pg/releases/download/v1.0.0/wait-for-pg-linux-amd64.tar.gz
+wget https://github.com/mxssl/wait-for-pg/releases/download/v1.0.1/wait-for-pg-linux-amd64.tar.gz
 tar xvzf wait-for-pg-linux-amd64.tar.gz
-cp wait-for-pg /usr/local/bin/wait-for-pg
+mv wait-for-pg /usr/local/bin/wait-for-pg
 chmod +x /usr/local/bin/wait-for-pg
+rm wait-for-pg-linux-amd64.tar.gz
 
 wait-for-pg check \
   --host postgres.domain.com \
@@ -23,13 +24,13 @@ wait-for-pg check \
   --sleep 2
 ```
 
-### Option 2: use docker container
+### Option 2: docker container
 
 ```sh
 docker container \
   run \
   --rm \
-  mxssl/wait-for-pg:v1.0.0 \
+  mxssl/wait-for-pg:v1.0.1 \
   wait-for-pg check \
     --host postgres.domain.com \
     --port 5432 \

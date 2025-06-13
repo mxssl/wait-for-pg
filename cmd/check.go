@@ -85,7 +85,11 @@ func check(c config) {
 		db, err := sql.Open("postgres", connString)
 		if db != nil {
 			err := db.Ping()
-			defer db.Close()
+			defer func() {
+				if closeErr := db.Close(); closeErr != nil {
+					log.Printf("Error closing database connection: %s", closeErr.Error())
+				}
+			}()
 			if err != nil {
 				log.Printf("Error: %s", err.Error())
 				continue

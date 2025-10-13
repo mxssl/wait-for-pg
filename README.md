@@ -7,7 +7,7 @@ Simple app that checks if PostgreSQL database is ready or not.
 ### Option 1: binary
 
 ```sh
-wget https://github.com/mxssl/wait-for-pg/releases/download/v1.0.1/wait-for-pg-linux-amd64.tar.gz
+wget https://github.com/mxssl/wait-for-pg/releases/download/v1.0.3/wait-for-pg-linux-amd64.tar.gz
 tar xvzf wait-for-pg-linux-amd64.tar.gz
 mv wait-for-pg /usr/local/bin/wait-for-pg
 chmod +x /usr/local/bin/wait-for-pg
@@ -30,7 +30,7 @@ wait-for-pg check \
 docker container \
   run \
   --rm \
-  mxssl/wait-for-pg:v1.0.1 \
+  mxssl/wait-for-pg:v1.0.3 \
   wait-for-pg check \
     --host postgres.domain.com \
     --port 5432 \

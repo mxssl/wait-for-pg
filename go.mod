@@ -1,6 +1,6 @@
 module github.com/mxssl/wait-for-pg
 
-go 1.24
+go 1.25
 
 require (
 	github.com/lib/pq v1.10.9
@@ -9,5 +9,5 @@ require (
 
 require (
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
-	github.com/spf13/pflag v1.0.9 // indirect
+	github.com/spf13/pflag v1.0.10 // indirect
 )

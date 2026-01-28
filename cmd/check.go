@@ -78,30 +78,46 @@ func init() {
 		"sslmode")
 }
 
-func check(c config) {
-	connString := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=%s connect_timeout=1", c.host, c.port, c.user, c.password, c.dbname, c.sslmode)
+func buildConnString(c config) string {
+	return fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=%s connect_timeout=1",
+		c.host, c.port, c.user, c.password, c.dbname, c.sslmode)
+}
+
+func tryConnect(connString string) error {
+	db, err := sql.Open("postgres", connString)
+	if err != nil {
+		return fmt.Errorf("open: %w", err)
+	}
+	defer func() {
+		if closeErr := db.Close(); closeErr != nil {
+			log.Printf("Error closing database connection: %s", closeErr.Error())
+		}
+	}()
+	if err := db.Ping(); err != nil {
+		return fmt.Errorf("ping: %w", err)
+	}
+	return nil
+}
+
+func checkWithRetry(c config) error {
+	connString := buildConnString(c)
+	var lastErr error
 	for i := 0; i < c.retry; i++ {
 		time.Sleep(time.Duration(c.sleep) * time.Second)
-		db, err := sql.Open("postgres", connString)
-		if db != nil {
-			err := db.Ping()
-			defer func() {
-				if closeErr := db.Close(); closeErr != nil {
-					log.Printf("Error closing database connection: %s", closeErr.Error())
-				}
-			}()
-			if err != nil {
-				log.Printf("Error: %s", err.Error())
-				continue
-			}
-		}
-		if db == nil {
+		if err := tryConnect(connString); err != nil {
 			log.Printf("Error: %s", err.Error())
+			lastErr = err
 			continue
 		}
 		log.Printf("DB is ready!")
-		os.Exit(0)
+		return nil
 	}
-	log.Printf("DB isn't ready! Retry counter exceeded")
-	os.Exit(1)
+	return fmt.Errorf("DB isn't ready! Retry counter exceeded: %w", lastErr)
+}
+
+func check(c config) {
+	if err := checkWithRetry(c); err != nil {
+		log.Print(err)
+		os.Exit(1)
+	}
 }

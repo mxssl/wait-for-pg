@@ -71,7 +71,7 @@ func init() {
 		"sleep",
 		1,
 		"sleep")
-	
+
 	checkCmd.Flags().StringVar(&c.sslmode,
 		"sslmode",
 		"require",

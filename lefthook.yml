@@ -1,0 +1,15 @@
+pre-commit:
+  parallel: true
+  commands:
+    golines:
+      glob: "*.go"
+      run: golines --write-output {staged_files} && git add {staged_files}
+    gofmt:
+      glob: "*.go"
+      run: gofmt -w {staged_files} && git add {staged_files}
+    goimports:
+      glob: "*.go"
+      run: goimports -w {staged_files} && git add {staged_files}
+    golangci-lint:
+      glob: "*.go"
+      run: golangci-lint run --fix && git add {staged_files}

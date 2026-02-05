@@ -3,7 +3,7 @@ module github.com/mxssl/wait-for-pg
 go 1.25
 
 require (
-	github.com/lib/pq v1.11.0
+	github.com/lib/pq v1.11.1
 	github.com/spf13/cobra v1.10.2
 )
 

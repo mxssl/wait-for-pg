@@ -1,6 +1,8 @@
 module github.com/mxssl/wait-for-pg
 
-go 1.25
+go 1.26
+
+toolchain go1.26.3
 
 require (
 	github.com/lib/pq v1.12.3

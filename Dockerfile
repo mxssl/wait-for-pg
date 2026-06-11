@@ -16,7 +16,7 @@ RUN CGO_ENABLED=0 \
 	go build -v -o wait-for-pg
 
 # Copy compiled binary to clear Alpine Linux image
-FROM alpine:3.23
+FROM alpine:3.24
 WORKDIR /
 RUN apk add --no-cache ca-certificates=20260413-r0
 COPY --from=builder /go/src/github.com/mxssl/wait-for-pg/wait-for-pg /usr/local/bin/wait-for-pg

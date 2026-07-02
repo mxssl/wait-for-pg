@@ -15,7 +15,7 @@ jobs:
           go-version: '1.26.3'
       - uses: actions/checkout@v6.0.3
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v9.2.1
+        uses: golangci/golangci-lint-action@v9.3.0
 
   docker-release:
     needs: lint

@@ -1,4 +1,4 @@
-FROM golang:1.26.6-alpine3.23 AS builder
+FROM golang:1.27.2-alpine3.23 AS builder
 
 WORKDIR /go/src/github.com/mxssl/wait-for-pg
 COPY . .
